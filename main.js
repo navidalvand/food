@@ -6,17 +6,25 @@ const port = getEnv("port");
 const { serverConf } = require("./src/conf/server.conf");
 const { ResponseHandler } = require("./src/common/res/res.handler");
 const { mainRouter } = require("./src/router");
+const { connectMongoDB } = require("./src/conf/db.conf");
 
-function main() {
-  serverConf(app);
-  app.use(mainRouter);
+async function main() {
+  try {
+    serverConf(app);
+    await connectMongoDB();
 
-  app.use(ResponseHandler);
+    app.use(mainRouter);
 
-  app.listen(port, (err) => {
-    if (err) return console.log(err);
-    console.log(`Example app listening on port ${port}!`);
-  });
+    app.use(ResponseHandler);
+
+    app.listen(port, (err) => {
+      if (err) return console.log(err);
+      console.log(`Example app listening on port ${port}!`);
+    });
+  } catch (err) {
+    console.log("main function error");
+    console.log(err);
+  }
 }
 
 main();
