@@ -58,10 +58,12 @@ class BadRequestException extends ResException {
 }
 
 module.exports = {
-  Res,
-  ResOk,
-  ResCreated,
-  ResDev,
-  ResException,
-  BadRequestException,
+  Response: {
+    Res,
+    ResOk,
+    ResCreated,
+    ResDev,
+    ResException,
+    BadRequestException,
+  },
 };
