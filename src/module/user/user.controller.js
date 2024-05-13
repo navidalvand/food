@@ -8,7 +8,7 @@ class UserController {
     this.#service = UserService;
   }
   register(req, res, next) {
-    this.#service.fuck();
+    res.send("fuck");
   }
 }
 

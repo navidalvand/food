@@ -1,7 +1,9 @@
 const autoBind = require("auto-bind");
 
 class UserService {
-  constructor() {}
+  constructor() {
+    autoBind(this);
+  }
   fuck() {
     console.log("fuck");
   }
