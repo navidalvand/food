@@ -1,14 +1,14 @@
-const { Response } = require("./responses");
+const { Res, ResException } = require("./responses");
 
 function ResponseHandler(resData, req, res, next) {
-  if (resData instanceof Response.ResException) {
+  if (resData instanceof ResException) {
     res.status(resData.code).json({
       msg: resData.msg,
-      error: resData.error,
       statusCode: resData.code,
+      error: resData.error,
       data: resData.data,
     });
-  } else if (resData instanceof Response.Res) {
+  } else if (resData instanceof Res) {
     res.status(resData.code).json({
       msg: resData.msg,
       statusCode: resData.code,

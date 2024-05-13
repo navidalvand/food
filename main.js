@@ -7,6 +7,7 @@ const { serverConf } = require("./src/conf/server.conf");
 const { ResponseHandler } = require("./src/common/res/res.handler");
 const { mainRouter } = require("./src/router");
 const { connectMongoDB } = require("./src/conf/db.conf");
+const { notFoundException } = require("./src/common/res/notFound");
 
 async function main() {
   try {
@@ -14,6 +15,8 @@ async function main() {
     await connectMongoDB();
 
     app.use(mainRouter);
+
+    notFoundException(app);
 
     app.use(ResponseHandler);
 
