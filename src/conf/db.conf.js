@@ -7,7 +7,6 @@ async function connectMongoDB() {
       await mongoose.connect(uri, {
         serverSelectionTimeoutMS: 5000,
       });
-      console.log("connected to mongodb");
       break;
     } catch (err) {
       console.log("Failed to connect to mongodb", i);
@@ -17,8 +16,16 @@ async function connectMongoDB() {
     }
   }
 
+  mongoose.connection.on("connected", () => {
+    console.log("connected to mongodb");
+  });
+
   mongoose.connection.on("error", (err) => {
     console.log(err);
+  });
+
+  mongoose.connection.on("disconnected", () => {
+    console.log("mongodb connection disconnected!");
   });
 }
 
