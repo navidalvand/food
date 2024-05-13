@@ -1,5 +1,6 @@
 const { default: mongoose } = require("mongoose");
-const uri = "mongodb://127.0.0.1:27017/food";
+const { getEnv } = require("../common/util/getEnv");
+const uri = getEnv("mongodb_uri");
 
 async function connectMongoDB() {
   for (let i = 0; i < 3; ++i) {
@@ -7,6 +8,8 @@ async function connectMongoDB() {
       await mongoose.connect(uri, {
         serverSelectionTimeoutMS: 5000,
       });
+      console.log("connected to mongodb");
+
       break;
     } catch (err) {
       console.log("Failed to connect to mongodb", i);
@@ -15,10 +18,6 @@ async function connectMongoDB() {
       }
     }
   }
-
-  mongoose.connection.on("connected", () => {
-    console.log("connected to mongodb");
-  });
 
   mongoose.connection.on("error", (err) => {
     console.log(err);

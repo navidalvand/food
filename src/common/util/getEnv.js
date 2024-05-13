@@ -1,6 +1,8 @@
 function getEnv(key) {
   if (typeof key !== "string") return false;
-  return process.env[key.toUpperCase()];
+  const env = process.env[key.toUpperCase()];
+  if (!env) console.log(`env not found key: ${key}`);
+  return env;
 }
 
 module.exports = {
