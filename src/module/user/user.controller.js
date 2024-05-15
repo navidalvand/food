@@ -1,5 +1,6 @@
 const autoBind = require("auto-bind");
 const { UserService } = require("./user.service");
+const { Response } = require("../../common/res/responses");
 
 class UserController {
   #service;
@@ -7,8 +8,15 @@ class UserController {
     autoBind(this);
     this.#service = UserService;
   }
-  register(req, res, next) {
-    res.send("fuck");
+  async register(req, res, next) {
+    try {
+      const { phone, password } = req.body;
+
+      const user = await this.#service.register({ password, phone });
+      next(new Response.ResCreated("Created", user));
+    } catch (err) {
+      next(new Response.BadRequestException(err.message));
+    }
   }
 }
 

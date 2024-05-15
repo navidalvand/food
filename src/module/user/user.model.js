@@ -16,8 +16,8 @@ const UserSchema = new Schema({
   },
   password: { type: String, required: true },
   fullName: { type: String, default: "user" },
-  img: { type: String, default: "/default/user.jpeg" },
-  email: { type: String, unique: true },
+  profile: { type: String, default: "/default/user.jpeg" },
+  email: { type: String, unique: false },
   intrests: {
     food: [IntrestSchema],
     category: [IntrestSchema],
