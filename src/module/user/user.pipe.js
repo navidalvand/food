@@ -23,6 +23,13 @@ class UserValidationPipe {
       next(new Response.BadRequestException(err.message));
     }
   }
+
+  loginPipe(req, res, next) {
+    try {
+    } catch (err) {
+      next(new Response.BadRequestException(err.message));
+    }
+  }
 }
 
 module.exports = {

@@ -4,11 +4,11 @@ const { UserValidationPipe } = require("./user.pipe");
 const router = require("express").Router();
 
 router.post(
-  "/auth/register",
+  "/auth/send-code",
   UserValidationPipe.registerPipe,
   UserController.register
 );
-// router.post("/login");
+router.post("/check-code");
 // router.post("/logout");
 // router.post("/forgot-pass");
 

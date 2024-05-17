@@ -13,7 +13,17 @@ class UserController {
       const { phone } = req.body;
 
       const user = await this.#service.register({ phone });
-      next(new Response.ResCreated("Created", user));
+      next(
+        new Response.ResCreated("Created", { code: user.otp.code, ...user })
+      );
+    } catch (err) {
+      next(new Response.BadRequestException(err.message));
+    }
+  }
+
+  async login(req, res, next) {
+    try {
+      const { code, phone } = req.body;
     } catch (err) {
       next(new Response.BadRequestException(err.message));
     }
