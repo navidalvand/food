@@ -10,9 +10,9 @@ class UserController {
   }
   async register(req, res, next) {
     try {
-      const { phone, password } = req.body;
+      const { phone } = req.body;
 
-      const user = await this.#service.register({ password, phone });
+      const user = await this.#service.register({ phone });
       next(new Response.ResCreated("Created", user));
     } catch (err) {
       next(new Response.BadRequestException(err.message));

@@ -17,8 +17,6 @@ const UserSchema = new Schema(
       trim: true,
     },
 
-    password: { type: String, required: [true, "password is required"] },
-
     fullName: { type: String, default: "user" },
 
     profile: { type: String, default: "/default/user.jpeg" },
@@ -36,6 +34,13 @@ const UserSchema = new Schema(
     pocket: { type: Number },
 
     basket: { type: [Types.ObjectId] },
+
+    otp: {
+      code: { type: Number },
+      expiresIn: { type: Date },
+    },
+
+    isValidated: { type: Boolean, default: false },
   },
   {
     timestamps: true,
