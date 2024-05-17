@@ -1,4 +1,4 @@
-const { Schema, model, Types } = require("mongoose");
+const { Schema, Types, model } = require("mongoose");
 
 const IntrestSchema = new Schema(
   {
@@ -8,30 +8,39 @@ const IntrestSchema = new Schema(
   { _id: false }
 );
 
-const UserSchema = new Schema({
-  phone: {
-    type: String,
-    required: true,
-    unique: true,
+const UserSchema = new Schema(
+  {
+    phone: {
+      type: String,
+      required: [true, "phone number is required"],
+      unique: [true, "phone number is already exist"],
+      trim: true,
+    },
+
+    password: { type: String, required: [true, "password is required"] },
+
+    fullName: { type: String, default: "user" },
+
+    profile: { type: String, default: "/default/user.jpeg" },
+
+    email: { type: String, default: "" },
+
+    intrests: {
+      food: { type: [IntrestSchema], default: [] },
+      category: { type: [IntrestSchema], default: [] },
+      restaurant: { type: [IntrestSchema], default: [] },
+    },
+
+    address: { type: String },
+
+    pocket: { type: Number },
+
+    basket: { type: [Types.ObjectId] },
   },
-  password: { type: String, required: true },
-  fullName: { type: String, default: "user" },
-  profile: { type: String, default: "/default/user.jpeg" },
-  email: { type: String, unique: false },
-  intrests: {
-    food: [IntrestSchema],
-    category: [IntrestSchema],
-    restaurant: [IntrestSchema],
-  },
-  default: {
-    food: [],
-    category: [],
-    restaurant: [],
-  },
-  address: { type: String },
-  pocket: { type: Number },
-  basket: { type: [Types.ObjectId] },
-});
+  {
+    timestamps: true,
+  }
+);
 
 const UserModel = new model("user", UserSchema);
 
