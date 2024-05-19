@@ -24,7 +24,7 @@ class UserService {
             } scconds left`,
           };
 
-        user.otp.code = randomNum;
+        user.otp.code = randomNum.toString();
         user.otp.expiresIn = twoMinuteLater;
         await user.save();
         return user;
@@ -36,6 +36,21 @@ class UserService {
         await newUser.save();
         return newUser;
       }
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async login({ phone, code }) {
+    try {
+      const user = await this.#model.findOne({ phone });
+      if (!user) throw { message: "user not found" };
+      const now = new Date().getTime();
+
+      if (user?.otp?.expiresIn < now) throw { message: "otp code has expired" };
+      if (user?.otp?.code !== code) throw { message: "otp code is wrong" };
+      if (!user.isValidated) user.isValidated = true;
+      return user;
     } catch (err) {
       throw err;
     }

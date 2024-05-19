@@ -8,7 +8,7 @@ router.post(
   UserValidationPipe.registerPipe,
   UserController.register
 );
-router.post("/check-code");
+router.post("/check-code", UserValidationPipe.loginPipe, UserController.login);
 // router.post("/logout");
 // router.post("/forgot-pass");
 

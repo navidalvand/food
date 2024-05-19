@@ -36,7 +36,7 @@ const UserSchema = new Schema(
     basket: { type: [Types.ObjectId] },
 
     otp: {
-      code: { type: Number },
+      code: { type: String },
       expiresIn: { type: Date },
     },
 

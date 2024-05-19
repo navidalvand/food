@@ -24,6 +24,8 @@ class UserController {
   async login(req, res, next) {
     try {
       const { code, phone } = req.body;
+      const user = this.#service.login({ code, phone });
+      next(new Response.ResOk("logged in successfully", user));
     } catch (err) {
       next(new Response.BadRequestException(err.message));
     }
