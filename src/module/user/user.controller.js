@@ -36,6 +36,15 @@ class UserController {
       next(new Response.BadRequestException(err.message));
     }
   }
+
+  logout(req, res, next) {
+    try {
+      res.cookie("accessToken", "");
+      next(new Response.ResOk());
+    } catch (err) {
+      next(new Response.BadRequestException(err.message));
+    }
+  }
 }
 
 module.exports = {

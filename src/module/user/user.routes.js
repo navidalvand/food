@@ -1,4 +1,5 @@
 const { UserController } = require("./user.controller");
+const { AuthGuard } = require("./user.guard");
 const { UserValidationPipe } = require("./user.pipe");
 
 const router = require("express").Router();
@@ -13,8 +14,8 @@ router.post(
   UserValidationPipe.loginPipe,
   UserController.login
 );
-// router.post("/logout");
-// router.post("/forgot-pass");
+router.post("/auth/logout", AuthGuard.authorizeUser, UserController.logout);
+// router.post("/forget-pass");
 
 module.exports = {
   userRouter: router,

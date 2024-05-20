@@ -68,11 +68,11 @@ class UserService {
     }
   }
 
-  async generateToken(payload) {
+  generateToken(payload) {
     try {
       const { phone } = payload;
       const SECRET_KEY = getEnv("SECRET_KEY");
-      const token = await jwt.sign({ phone }, SECRET_KEY, { expiresIn: "1d" });
+      const token = jwt.sign({ phone }, SECRET_KEY, { expiresIn: "1d" });
       return token;
     } catch (err) {
       throw err;

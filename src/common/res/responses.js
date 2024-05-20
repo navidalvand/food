@@ -66,6 +66,16 @@ class NotFoundException extends ResException {
   }
 }
 
+class UnAuthorizedException extends ResException {
+  constructor(msg, data, error, code) {
+    data = data || null;
+    msg = msg || "UnAuthorized";
+    code = code || 401;
+    error = error || "UnAuthorized";
+    super(msg, data, error, code);
+  }
+}
+
 module.exports = {
   Res,
   ResException,
@@ -75,5 +85,6 @@ module.exports = {
     ResDev,
     BadRequestException,
     NotFoundException,
+    UnAuthorizedException,
   },
 };
