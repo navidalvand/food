@@ -8,6 +8,7 @@ class UserController {
     autoBind(this);
     this.#service = UserService;
   }
+
   async register(req, res, next) {
     try {
       const { phone } = req.body;
@@ -24,7 +25,12 @@ class UserController {
   async login(req, res, next) {
     try {
       const { code, phone } = req.body;
-      const user = this.#service.login({ code, phone });
+      const user = await this.#service.login({ code, phone });
+
+      const token = await this.#service.generateToken({ phone });
+
+      res.cookie("accessToken", token);
+
       next(new Response.ResOk("logged in successfully", user));
     } catch (err) {
       next(new Response.BadRequestException(err.message));
