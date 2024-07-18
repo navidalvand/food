@@ -26,6 +26,8 @@ const RestaurantSchema = new Schema(
   {
     owner: { type: Types.ObjectId, ref: "user", required: true },
     menue: { type: MenueSchema, default: null },
+    open: { type: String },
+    close: { type: String },
   },
   {
     timestamps: true,

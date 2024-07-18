@@ -78,6 +78,14 @@ class UserService {
       throw err;
     }
   }
+
+  async findByPhone(phone) {
+    try {
+      return await this.#model.findOne({ phone });
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 module.exports = {
