@@ -14,9 +14,7 @@ class UserController {
       const { phone } = req.body;
 
       const user = await this.#service.register({ phone });
-      next(
-        new Response.ResCreated("Created", { code: user.otp.code, ...user })
-      );
+      next(new Response.ResCreated("Created", { code: user.otp.code }));
     } catch (err) {
       next(new Response.BadRequestException(err.message));
     }
