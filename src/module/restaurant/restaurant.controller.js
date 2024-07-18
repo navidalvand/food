@@ -1,6 +1,6 @@
 const autoBind = require("auto-bind");
-const { Response } = require("../../common/res/responses");
 const { RestaurantService } = require("./restaurant.service");
+const { Response } = require("../../common/res/responses");
 
 class RestaurantController {
   #RestaurantService;
@@ -11,8 +11,13 @@ class RestaurantController {
   async create(req, res, next) {
     try {
       const { user } = req;
-      console.log(user);
-      await this.#RestaurantService.create();
+      const { restaurantName } = req.body;
+      const result = await this.#RestaurantService.create({
+        ownerId: user._id,
+        restaurantName,
+      });
+
+      next(new Response.ResCreated("restaurant created", result));
     } catch (err) {
       next(new Response.BadRequestException(err.message));
     }

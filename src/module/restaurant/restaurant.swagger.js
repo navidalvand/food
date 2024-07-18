@@ -9,29 +9,15 @@
  * @swagger
  * components:
  *  schemas:
- *      send-otp:
+ *      create-restaurant:
  *          type: object
  *          properties:
- *              phone:
+ *              restaurantName:
  *                  type: string
  *                  required: true
- *                  description: users phone number
+ *                  description: what do you call youre restaurant
  *          required:
- *            - phone
- *      check-otp:
- *          type: object
- *          properties:
- *              phone:
- *                  type: string
- *                  required: true
- *                  description: users phone number
- *              code:
- *                  type: number
- *                  required : true
- *                  description: one time password
- *          required:
- *            - phone
- *            - code
+ *            - restaurantName
  */
 
 /**
@@ -42,7 +28,17 @@
  *          summary: create a restaurant
  *          tags : [Restaurant]
  *          description: only if you have an account and you are logged in you can create a restaurant
+ *          requestBody:
+ *              description: request body
+ *              required: true
+ *              content:
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: "#/components/schemas/create-restaurant"
+ *                  application/json:
+ *                      schema:
+ *                          $ref: "#/components/schemas/create-restaurant"
  *          responses:
- *              200:
- *                  description: user profile
+ *              201:
+ *                  description: restaurant created
  */
