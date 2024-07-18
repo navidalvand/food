@@ -1,5 +1,3 @@
 class RestaurantController {
-    constructor() { }
-    
-    
+  constructor() {}
 }
